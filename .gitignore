@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Firefox Add-on files
+*.xpi
+
 # =========================
 # Operating System Files
 # =========================
