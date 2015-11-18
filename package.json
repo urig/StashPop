@@ -1,0 +1,17 @@
+{
+  "title": "StashPop for GitHub",
+  "name": "stashpop",
+  "version": "0.0.1",
+  "description": "Adds features to GitHub, with extra Jenkins goodness on https://github.com/dotnet/ repositories.",
+  "main": "index.js",
+  "author": "David Poeschl <dpoeschl@gmail.com> (http://www.dpoeschl.com/)",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "stashpop",
+    "github"
+  ]
+}
