@@ -8,31 +8,37 @@ var emailGitHubIssuesClassName = "emailGitHubIssues";
 
 function initialSetup() {
     var s = document.createElement('script');
-    s.src = chrome.extension.getURL('scripts/injectedcode.js');
-    s.onload = function () {
-        this.parentNode.removeChild(this);
-    };
+    if (!runningInFirefox()) {
+        s.src = chrome.extension.getURL('scripts/injectedcode.js');
+        s.onload = function () {
+            window.alert("onload");
+            this.parentNode.removeChild(this);
+        };
 
-    (document.head || document.documentElement).appendChild(s);
+        (document.head || document.documentElement).appendChild(s);
+    }
 
     document.addEventListener('_pjax:end', function () {
         reload();
     }, false);
+
 }
 
 function reload() {
+
     $('.' + emailGitHubIssuesClassName).remove();
 
-    addIndividualIssueButton();
+//    addIndividualIssueButton();
     addButtonsToIssuesList();
-
+/*
     openJenkinsDetailsInNewTab();
     makeBuildStatusWindowsBig();
 
     addTestFailureButtonsAndDescriptions();
     addJenkinsTestRunTimes();
+*/
 }
-
+/*
 function addIndividualIssueButton() {
     var urlParts = stripTrailingSlash(stripFragment(window.location.href)).split("/");
     var isPull = urlParts[urlParts.length - 2] == "pull";
@@ -359,15 +365,15 @@ function makeBuildStatusWindowsBig() {
         lists[i].style.maxHeight = "5000px";
     }
 }
-
+*/
 function stripTrailingSlash(str) {
     return str.substr(-1) === '/' ? str.substring(0, str.length - 1) : str;
 }
-
+/*
 function stripFragment(str) {
     return str.indexOf('#') >= 0 ? str.substring(0, str.indexOf('#')) : str;
 }
-
+*/
 function addButtonsToIssuesList() {
     var url = stripTrailingSlash(window.location.href);
     var urlParts = url.split("/");
@@ -376,7 +382,15 @@ function addButtonsToIssuesList() {
     if (urlParts[urlParts.length - 1] == "pulls") {
       isPull = true;
     }
-
+    window.alert("isPull = " + isPull);
+    //if (runningInFirefox()) {
+      //self.port.on("getSettingsResponse", function(keys) {
+      //  window.alert(keys);
+      //});
+      //self.port.emit("getSettings", { keys : ["emailIssuesList", "emailPullRequestList"] });
+    //}
+    //else {
+/*
     chrome.runtime.sendMessage({ method: "getSettings", keys: ["emailIssuesList", "emailPullRequestList"] }, function (response) {
         var issuesList = document.getElementsByClassName("table-list-issues")[0];
         if (typeof issuesList !== 'undefined' && ((isPull && response.data["emailPullRequestList"]) || (!isPull && response.data["emailIssuesList"]))) {
@@ -389,8 +403,8 @@ function addButtonsToIssuesList() {
             buttonAll.setAttribute("name", "buttonname");
             buttonAll.onclick = (function() { 
                 return function() {
-	            sendmultimail(issuesList, isPull);
-	        };
+                    sendmultimail(issuesList, isPull);
+            };
             })();
             buttonAll.className = "btn btn-sm";
 
@@ -422,8 +436,10 @@ function addButtonsToIssuesList() {
             }
         }
     });
+*/
+  //}
 }
-
+/*
 function openJenkinsDetailsInNewTab() {
     chrome.runtime.sendMessage({ method: "getSettings", keys: ["jenkinsOpenDetailsLinksInNewTab"] }, function (response) {
         if (response.data["jenkinsOpenDetailsLinksInNewTab"]) {
@@ -502,4 +518,8 @@ function sendmail(issueNumber, issueTitle, isPull) {
     var body = baseUrl + issueNumber + "\r\n\r\n"; // TODO: Assigned to, etc.
 
     window.location.href = "mailto:?subject=" + encodeURI(subject) + "&body=" + encodeURI(body);
+}*/
+
+function runningInFirefox() {
+    return ((typeof InstallTrigger) !== 'undefined');
 }
