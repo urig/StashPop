@@ -384,10 +384,10 @@ function addButtonsToIssuesList() {
     }
     window.alert("isPull = " + isPull);
     //if (runningInFirefox()) {
-      //self.port.on("getSettingsResponse", function(keys) {
-      //  window.alert(keys);
-      //});
-      //self.port.emit("getSettings", { keys : ["emailIssuesList", "emailPullRequestList"] });
+      self.port.on("getSettingsResponse", function(keys) {
+        window.alert(keys);
+      });
+      self.port.emit("getSettings", { keys : ["emailIssuesList", "emailPullRequestList"] });
     //}
     //else {
 /*

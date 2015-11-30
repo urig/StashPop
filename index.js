@@ -5,7 +5,7 @@ pageMod.PageMod({
     include: "*.github.com",
     contentScriptFile: ["resource://stashpop/jquery-2.1.4.min.js", "resource://stashpop/content.js"],
     contentScriptWhen: "start",
-    //onAttach: startListening
+    onAttach: startListening
 });
 
 pageMod.PageMod({
@@ -15,9 +15,9 @@ pageMod.PageMod({
 });
 
 function startListening(worker) {
-//  worker.port.on('getSettings', function(keys) {
-//    worker.port.emit('getSettingsResponse', keys);
-//  });
+  worker.port.on('getSettings', function(keys) {
+    worker.port.emit('getSettingsResponse', keys);
+  });
 }
 
 // a dummy function, to show how tests work.
