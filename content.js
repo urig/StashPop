@@ -384,8 +384,10 @@ function addButtonsToIssuesList() {
     }
     window.alert("isPull = " + isPull);
     //if (runningInFirefox()) {
-      self.port.on("getSettingsResponse", function(keys) {
-        window.alert(keys);
+      self.port.on("getSettingsResponse", function(data) {
+        // This should be the body: var issuesList = document ...
+        window.alert(data["emailIssuesList"]);
+        window.alert(data["emailPullRequestList"]);
       });
       self.port.emit("getSettings", { keys : ["emailIssuesList", "emailPullRequestList"] });
     //}

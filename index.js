@@ -16,7 +16,12 @@ pageMod.PageMod({
 
 function startListening(worker) {
   worker.port.on('getSettings', function(keys) {
-    worker.port.emit('getSettingsResponse', keys);
+    var data = {};
+    for (var i=0; i<keys.length; i++) {
+      data[keys[i]] = ss.storage.settings[keys[i]];
+    } 
+    worker.port.emit('getSettingsResponse', data);
+    //worker.port.emit('getSettingsResponse', keys);
   });
 }
 
